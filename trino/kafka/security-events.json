@@ -1,0 +1,23 @@
+{
+  "tableName": "security-events",
+  "schemaName": "default",
+  "topicName": "security-events",
+  "key": {"dataFormat": "raw", "fields": [{"name": "message_key", "type": "VARCHAR", "mapping": "_key"}]},
+  "message": {
+    "dataFormat": "json",
+    "fields": [
+      {"name": "event_id", "mapping": "event_id", "type": "VARCHAR"},
+      {"name": "event_time", "mapping": "event_time", "type": "VARCHAR"},
+      {"name": "user_id", "mapping": "user_id", "type": "VARCHAR"},
+      {"name": "department", "mapping": "department", "type": "VARCHAR"},
+      {"name": "event_type", "mapping": "event_type", "type": "VARCHAR"},
+      {"name": "country", "mapping": "country", "type": "VARCHAR"},
+      {"name": "device_id", "mapping": "device_id", "type": "VARCHAR"},
+      {"name": "data_classification", "mapping": "data_classification", "type": "VARCHAR"},
+      {"name": "bytes_transferred", "mapping": "bytes_transferred", "type": "BIGINT"},
+      {"name": "privileged_account", "mapping": "privileged_account", "type": "BOOLEAN"},
+      {"name": "is_known_device", "mapping": "is_known_device", "type": "BOOLEAN"}
+    ]
+  }
+}
+
