@@ -1,0 +1,20 @@
+// Assumes normalized events are mirrored into an InsiderRiskEvents table in ADX/Sentinel.
+let Lookback = 24h;
+InsiderRiskEvents
+| where TimeGenerated >= ago(Lookback)
+| extend OffHours = hourofday(EventTime) < 6 or hourofday(EventTime) >= 22
+| where RiskScore >= 70 or
+    (DataClassification == "restricted" and PrivilegedAccount == true and OffHours)
+| project TimeGenerated, EventTime, UserId, Department, EventType, Country,
+          DeviceId, BytesTransferred, RiskScore, Severity
+| order by RiskScore desc
+
+// One-hour user behavior aggregation.
+InsiderRiskEvents
+| where TimeGenerated >= ago(1h)
+| where EventType in ("file_download", "file_upload")
+| summarize EventCount=count(), TotalBytes=sum(BytesTransferred),
+            Devices=dcount(DeviceId), Countries=make_set(Country) by UserId
+| where TotalBytes >= 1000000000 or Devices >= 3
+| order by TotalBytes desc
+
