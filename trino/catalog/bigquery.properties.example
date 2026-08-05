@@ -1,0 +1,4 @@
+connector.name=bigquery
+bigquery.project-id=YOUR_GCP_PROJECT_ID
+bigquery.credentials-file=/opt/credentials/gcp-service-account.json
+
